@@ -125,7 +125,7 @@ Chaque point porte un identifiant, l'impact, le premier jalon concerné et une *
 | Fiches de design : cartes, boss île 1, Flare, Sparks (valeurs de M2) | GAME | M1 | G1 à G6 |
 | Fiches de design méta : pistes, bâtiments par île, déblocage d'îles, Keepers | META | M3 | E2 à E4 |
 | Consentement analytics (Consent Mode, Crashlytics) | SVC | M4 | M1 |
-| Écran « énergie vide » : attendre, pub `extra_oil`, 20 Pearls | UI | M3 | aucun ticket ne couvre ce flux |
+| Écran « énergie vide » : attendre, pub `extra_lamp_oil`, 20 Pearls | UI | M3 | aucun ticket ne couvre ce flux |
 | Écran pré-run : choix de l'île, Keeper équipé, coût en Lamp Oil | UI | M3 | le hub (UI-006) a seulement un bouton de lancement |
 | Menu pause en run : reprendre, réglages, abandonner | UI | M2 | G8 ; le HUD (UI-002) a un bouton pause, aucun écran |
 | Offre starter pack : déclencheur, affichage unique | ECO/UI | M4 | brief § 4.8 « proposé après la première session » |

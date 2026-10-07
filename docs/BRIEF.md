@@ -389,7 +389,7 @@ Voir § 3.13 (Light Cache et bâtiments).
 |---|---|---|---|
 | `revive` | Écran de défaite | Reprendre à 50 % d'Integrity | 1 par run (gratuit pendant les 3 premières runs) |
 | `double_rewards` | Écran de fin de run | Gains ×2 | Une fois par fin de run, sans plafond quotidien |
-| `extra_oil` | Énergie vide | +1 Lamp Oil | 4 par jour |
+| `extra_lamp_oil` | Énergie vide | +1 Lamp Oil | 4 par jour |
 | `light_cache_x2` | Bâtiments | Light Cache ×2 | 3 par jour |
 | `reroll` | Choix de cartes | Retirage des 3 cartes | 1 par run |
 
@@ -428,10 +428,10 @@ Voir § 3.13 (Light Cache et bâtiments).
 
 | Clé | Défaut |
 |---|---|
-| `oil_max` / `oil_regen_minutes` / `oil_bonus_cap` | 5 / 25 / 8 |
+| `lamp_oil_max` / `lamp_oil_regen_minutes` / `lamp_oil_bonus_cap` | 5 / 25 / 8 |
 | `offline_cap_hours` | 8 |
 | `interstitial_min_seconds` / `interstitial_every_n_runs` | 180 / 2 |
-| `rewarded_extra_oil_per_day` / `rewarded_light_cache_per_day` | 4 / 3 |
+| `rewarded_extra_lamp_oil_per_day` / `rewarded_light_cache_per_day` | 4 / 3 |
 | `upgrade_cost_base` / `upgrade_cost_growth` / `upgrade_cost_growth_late` | 80 / 1.32 / 1.12 |
 | `island_health_multipliers` | 1, 1.6, 2.5, 3.8, 5.5, 8 |
 | `island_payout_multipliers` | 1, 1.5, 2.2, 3.2, 4.5, 6 |
@@ -514,7 +514,7 @@ Assets/
 ### 5.3 Noyau pur : portefeuille et stats
 
 ```csharp
-public enum CurrencyType { Light, Fragments, Pearls, Oil }
+public enum CurrencyType { Light, Fragments, Pearls, LampOil }
 
 public sealed class Wallet
 {
@@ -811,7 +811,7 @@ public sealed class PlayerSave
 - `IslandState` : boss vaincu, niveaux des bâtiments, défaites consécutives (assistance).
 - `EnergyState` : quantité, horodatage de dernière régénération, bonus au-delà du plafond.
 - `DailyState` : jour du cycle, horodatage de la dernière réclamation, série, jour pardonné utilisé (fenêtre glissante).
-- `AdCounters` : compteurs par jour (`extra_oil`, `light_cache_x2`), horodatage du dernier interstitiel, runs depuis le dernier interstitiel.
+- `AdCounters` : compteurs par jour (`extra_lamp_oil`, `light_cache_x2`), horodatage du dernier interstitiel, runs depuis le dernier interstitiel.
 - `PlayerSettings` : volumes, haptique, gaucher, tremblement d'écran, qualité, langue.
 - Fichier JSON dans `Application.persistentDataPath`, champ `Version` et migrations successives, écriture atomique (fichier temporaire puis remplacement) avec copie de secours, sauvegarde à chaque achat, fin de run et `OnApplicationPause(true)`.
 - Sauvegarde cloud (Play Games) avec résolution de conflit sans perte de monnaie premium.
