@@ -23,6 +23,7 @@ namespace Game.Tests.EditMode
         private const string ProjectAssemblyPrefix = "Game.";
         private const string TestAssemblyPrefix = "Game.Tests.";
         private const string GuidReferencePrefix = "GUID:";
+        private const string NewtonsoftAssemblyFile = "Newtonsoft.Json.dll";
 
         private static readonly string[] EngineAssemblyPrefixes = { "UnityEngine", "UnityEditor" };
 
@@ -88,6 +89,15 @@ namespace Game.Tests.EditMode
             Assert.That(ReadAssemblyDefinition(CoreAssembly).References, Is.Empty);
 
         [Test]
+        public void CoreAssemblyDefinition_PrecompiledReferences_AreOnlyNewtonsoft()
+        {
+            var definition = ReadAssemblyDefinition(CoreAssembly);
+
+            Assert.That(definition.OverrideReferences, Is.True);
+            Assert.That(definition.PrecompiledReferences, Is.EqualTo(new[] { NewtonsoftAssemblyFile }));
+        }
+
+        [Test]
         public void CoreCompilerReferences_UnityAssemblies_AreAbsent()
         {
             var compilerReferences = FindCompiledAssembly(CoreAssembly, AssembliesType.Player).compiledAssemblyReferences
@@ -148,9 +158,13 @@ namespace Game.Tests.EditMode
         {
             [SerializeField] private string[] references = Array.Empty<string>();
             [SerializeField] private bool noEngineReferences;
+            [SerializeField] private bool overrideReferences;
+            [SerializeField] private string[] precompiledReferences = Array.Empty<string>();
 
             public IReadOnlyList<string> References => references;
             public bool NoEngineReferences => noEngineReferences;
+            public bool OverrideReferences => overrideReferences;
+            public IReadOnlyList<string> PrecompiledReferences => precompiledReferences;
         }
     }
 }
