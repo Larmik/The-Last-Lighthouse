@@ -821,6 +821,10 @@ public sealed class PlayerSave
 - **Horodatages** : millisecondes Unix UTC (`long`).
 - **Versionnage** : `Version` absent = version 1 ; chaque migration transforme le JSON brut de la version N vers N+1 avant désérialisation ; une sauvegarde plus récente que l'app ou illisible est refusée sans être écrasée.
 - Fichier JSON dans `Application.persistentDataPath`, champ `Version` et migrations successives, écriture atomique (fichier temporaire puis remplacement) avec copie de secours, sauvegarde à chaque achat, fin de run et `OnApplicationPause(true)`.
+- **Fichiers** : `player_save.json` (principal), `player_save.backup.json` (secours), `player_save.tmp` (temporaire), `player_save.unreadable.json` (principal illisible mis de côté).
+- **Écriture** : le JSON produit est relu avant toute écriture (illisible = refusé, rien n'est touché), écrit dans le temporaire vidé sur disque, puis le principal lisible devient le secours et le temporaire est renommé en principal (renommages sans `File.Replace`).
+- **Lecture** : aucun fichier = nouvelle partie ; principal illisible ou absent = secours ; principal et secours illisibles = chargement refusé (`SaveDataException`), sans réinitialisation implicite : le `BootFlow` affiche un message et propose une réinitialisation explicite.
+- **Principal illisible lors d'une sauvegarde** : il n'est pas écrasé mais renommé en `player_save.unreadable.json` (un seul exemplaire) ; la copie de secours valide est conservée.
 - Sauvegarde cloud (Play Games) avec résolution de conflit sans perte de monnaie premium.
 
 ### 5.8 Run et UI
