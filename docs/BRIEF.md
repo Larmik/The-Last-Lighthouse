@@ -493,6 +493,7 @@ Assets/
     Data/          Enemies, Upgrades, Waves, Islands, Buildings, Keepers (ScriptableObjects)
     Scripts/
       Core/        Game.Core        C# pur, sans UnityEngine (noEngineReferences)
+      Data/        Game.Data        définitions ScriptableObject, UpgradeEffect, GameCatalog
       Economy/     Game.Economy     portefeuille, courbes, énergie, récompenses
       Meta/        Game.Meta        progression, îles, bâtiments, keepers, quêtes
       Gameplay/    Game.Gameplay    faisceau, ennemis, vagues, RunDirector
@@ -505,7 +506,8 @@ Assets/
       PlayMode/    Game.Tests.PlayMode
 ```
 
-- **Dépendances** : Economy et Meta dépendent de Core ; Gameplay dépend de Core et Economy ; UI dépend de Core, Economy, Meta, Gameplay ; Services dépend de Core ; Bootstrap dépend de tout. Jamais l'inverse.
+- **Dépendances** : Data dépend de Core ; Economy et Meta dépendent de Core et Data ; Gameplay dépend de Core, Data et Economy ; UI dépend de Core, Data, Economy, Meta, Gameplay ; Services dépend de Core ; Bootstrap dépend de tout. Jamais l'inverse.
+- **Game.Data** existe parce qu'un ScriptableObject exige `UnityEngine` (interdit dans Core) et que Meta et Economy doivent lire les définitions sans dépendre de Gameplay. `Scripts/Data/` contient le code des définitions ; `_Project/Data/` contient les assets.
 - **Scènes** : Boot (initialise les services, charge la sauvegarde, puis charge Hub), Hub (archipel, améliorations, bâtiments, Keepers, boutique), Run (combat, une seule scène paramétrée par `IslandDefinition`).
 - Les services ont toujours une implémentation **Fake** pour l'éditeur afin de tester sans SDK.
 
@@ -610,7 +612,7 @@ public sealed class EnemyDefinition : ScriptableObject
     public bool HiddenInDark;
     public float StrikeRadius;
     public float StrikeDelay;
-    public EnemyView Prefab;
+    public GameObject Prefab;
 }
 
 public enum Rarity { Common, Rare, Epic }
@@ -630,10 +632,20 @@ public sealed class UpgradeDefinition : ScriptableObject
 
 public abstract class UpgradeEffect : ScriptableObject
 {
-    public abstract void OnPicked(RunContext context, int stackCount);
+    public abstract void OnPicked(IRunContext context, int stackCount);
+}
+
+public interface IRunContext
+{
+    StatBlock Stats { get; }
+    void Heal(float ratioOfMax);
+    void AddRunLight(long amount);
+    void EnablePeriodicPulse(PeriodicPulseEffect effect);
+    void SetAllies(int count);
 }
 ```
 
+- Toutes les définitions, `UpgradeEffect`, `IRunContext` et le `GameCatalog` vivent dans `Game.Data`. `IRunContext` est implémenté par Gameplay (`RunDirector`) ; les champs prefab sont typés `GameObject` pour ne pas dépendre de Gameplay.
 - Effets concrets : `HealEffect` (Mend), `PeriodicPulseEffect` (Tide Pulse), `AllySpawnEffect` (Gull Squadron), `LightBonusEffect` (Lantern Coin). Les effets lisent leurs valeurs dans le `StatBlock` quand elles en dépendent.
 - Autres définitions : `WaveDefinition`, `IslandDefinition` (multiplicateurs, boss, vagues, bâtiments, Keeper, Logbook entries), `BossDefinition`, `KeeperDefinition`, `BuildingDefinition`, `QuestDefinition`, `CosmeticDefinition`, `LogbookEntryDefinition`, `RunTuning` (valeurs de base de la run : Shadowed, rayon d'apparition…).
 - Un `GameCatalog` (ScriptableObject) référence toutes les définitions et est injecté par le composition root. Un validateur d'éditeur signale les `Id` dupliqués et les références manquantes.
