@@ -8,7 +8,7 @@ Jeu mobile Android (Unity 6, 2D URP, C#) : roguelite court (runs de 2 à 4 min) 
 
 ## Prérequis
 
-- Unity **6000.6.4f1** (Unity 6) avec le module Android Build Support (SDK, NDK, OpenJDK)
+- Unity **6000.3.25f1** (Unity 6.3 LTS) avec le module Android Build Support (SDK, NDK, OpenJDK)
 - JetBrains Rider (ou Visual Studio)
 - Git et **Git LFS** (`brew install git-lfs && git lfs install`) avant le premier clone
 
@@ -22,7 +22,7 @@ Fusion des scènes et prefabs (optionnel, recommandé) avec UnityYAMLMerge :
 
 ```bash
 git config merge.unityyamlmerge.name "Unity SmartMerge"
-git config merge.unityyamlmerge.driver "'/Applications/Unity/Hub/Editor/6000.6.4f1/Unity.app/Contents/Tools/UnityYAMLMerge' merge -p %O %B %A %A"
+git config merge.unityyamlmerge.driver "'/Applications/Unity/Hub/Editor/6000.3.25f1/Unity.app/Contents/Tools/UnityYAMLMerge' merge -p %O %B %A %A"
 ```
 
 ## Structure du dépôt

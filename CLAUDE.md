@@ -25,7 +25,7 @@ Développeur mobile expérimenté (Kotlin, Swift) mais **débutant en Unity**. E
 
 ## Projet
 
-- **Unity** : 6000.6.4f1 (Unity 6), 2D, URP, C#. Éditeur : `/Applications/Unity/Hub/Editor/6000.6.4f1/Unity.app/Contents/MacOS/Unity`
+- **Unity** : 6000.3.25f1 (Unity 6.3 LTS), 2D, URP, C#. Éditeur : `/Applications/Unity/Hub/Editor/6000.3.25f1/Unity.app/Contents/MacOS/Unity`
 - **Plateforme** : Android d'abord (IL2CPP, ARM64, AAB, minSdk 24, portrait verrouillé, 60 fps, vSync désactivé, textures ASTC). iOS éventuellement plus tard.
 - **Langue du jeu** : anglais au lancement, via Unity Localization (français ensuite).
 - **Dépôt** : `Larmik/The-Last-Lighthouse`, branche par défaut **`main`**. Tickets : GitHub Issues, préfixés par pôle (`OPS`, `CORE`, `GAME`, `ECO`, `META`, `SVC`, `UI`, `ART`, `AUD`, `NARR`, `QA`, `REL`), jalons `M0 - Setup` à `M6 - Soft launch`.
