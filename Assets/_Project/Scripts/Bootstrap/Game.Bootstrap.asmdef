@@ -1,7 +1,7 @@
 {
     "name": "Game.Bootstrap",
     "rootNamespace": "Game.Bootstrap",
-    "references": ["Game.Core", "Game.Data", "Game.Economy", "Game.Meta", "Game.Gameplay", "Game.Services", "Game.UI", "UniTask"],
+    "references": ["Game.Core", "Game.Data", "Game.Economy", "Game.Meta", "Game.Gameplay", "Game.Services", "Game.UI", "UniTask", "VContainer"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "Game.Bootstrap",
         "Game.Data",
-        "UniTask"
+        "UniTask",
+        "VContainer"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -776,6 +776,9 @@ public sealed class GameLifetimeScope : LifetimeScope
 
 En éditeur, chaque service adossé à un SDK est remplacé par son Fake (`FakeAdService`, `FakePurchaseService`, `FakeConsentService`…).
 
+- **Composition root** : le bloc ci-dessus est la cible. `GameLifetimeScope` est le scope racine, posé dans la scène Boot et conservé entre les scènes (`DontDestroyOnLoad`) ; il sera le parent des scopes de Hub et Run. Les enregistrements sont regroupés dans `GameInstaller` (testable sans scène), puis `BootFlow` est enregistré comme point d'entrée. Les services réels, `EnergyService`, `ProgressionService` et le `GameCatalog` s'y ajoutent avec leurs tickets ; d'ici là, les Fakes sont enregistrés partout.
+- **Sauvegarde en éditeur** : `JsonSaveService` (pas de SDK, même comportement disque que sur l'appareil) ; `FakeSaveService` est réservé aux tests.
+
 Les méthodes asynchrones des services prennent en dernier paramètre un `CancellationToken` optionnel, lié au cycle de vie de l'appelant ; une opération annulée lève `OperationCanceledException` sans effet (pas de récompense, d'achat ni de consentement enregistré).
 
 - **Temps** : `ITimeProvider`, `SystemTimeProvider` et `FakeTimeProvider` (temps avançable, fuseau modifiable) vivent dans `Game.Core` (`Game.Core.Time`), lisibles par Economy et Meta sans dépendre de Services. En éditeur, `SystemTimeProvider` reste le choix par défaut ; `FakeTimeProvider` sert aux tests.
@@ -830,7 +833,7 @@ public sealed class PlayerSave
 - Fichier JSON dans `Application.persistentDataPath`, champ `Version` et migrations successives, écriture atomique (fichier temporaire puis remplacement) avec copie de secours, sauvegarde à chaque achat, fin de run et `OnApplicationPause(true)`.
 - **Fichiers** : `player_save.json` (principal), `player_save.backup.json` (secours), `player_save.tmp` (temporaire), `player_save.unreadable.json` (principal illisible mis de côté).
 - **Écriture** : le JSON produit est relu avant toute écriture (illisible = refusé, rien n'est touché), écrit dans le temporaire vidé sur disque, puis le principal lisible devient le secours et le temporaire est renommé en principal (renommages sans `File.Replace`).
-- **Lecture** : aucun fichier = nouvelle partie ; principal illisible ou absent = secours ; principal et secours illisibles = chargement refusé (`SaveDataException`), sans réinitialisation implicite : le `BootFlow` affiche un message et propose une réinitialisation explicite.
+- **Lecture** : aucun fichier = nouvelle partie ; principal illisible ou absent = secours ; principal et secours illisibles = chargement refusé (`SaveDataException`), sans réinitialisation implicite : le `BootFlow` affiche un message et propose une réinitialisation explicite. En attendant cet écran, le `BootFlow` journalise l'erreur et reste sur Boot, sans rien écraser.
 - **Principal illisible lors d'une sauvegarde** : il n'est pas écrasé mais renommé en `player_save.unreadable.json` (un seul exemplaire) ; la copie de secours valide est conservée.
 - Sauvegarde cloud (Play Games) avec résolution de conflit sans perte de monnaie premium.
 

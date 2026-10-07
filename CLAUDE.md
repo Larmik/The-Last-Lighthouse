@@ -102,6 +102,7 @@ Assemblies sous `Assets/_Project/Scripts/` (une asmdef par dossier) :
 **Jamais de dépendance inverse.** Une référence manquante entre assemblies se règle en revoyant le découpage, pas en ajoutant une dépendance à rebours.
 
 - **Scènes** : `Boot` (services, chargement de la sauvegarde, puis Hub) → `Hub` (méta : archipel, améliorations, boutique) → `Run` (combat). Navigation par `ISceneLoader` (`Game.Data.Scenes`) ; l'ordre des Build Settings suit l'enum `GameScene` (menu `Game > Scenes > Create Missing Scenes And Build Settings`, vérifié par un test EditMode).
+- **Composition root** : `GameLifetimeScope` (objet de la scène `Boot`, conservé entre scènes par `DontDestroyOnLoad`, parent des futurs scopes de Hub et Run) applique `GameInstaller` (enregistrements, vérifiés par un test EditMode) puis lance le point d'entrée `BootFlow` : chargement de la sauvegarde, puis Hub.
 - **Services** : toujours une implémentation **Fake** pour l'éditeur (`#if UNITY_EDITOR`) afin de tester sans SDK.
 - **RunDirector** : machine à états `Intro, Wave, UpgradeChoice, Boss, Victory, Defeat` ; possède la boucle Tick, le registre d'ennemis et le spawner poolé ; émet des événements C# écoutés par l'UI. `Time.timeScale = 0` pendant le choix de carte.
 - **Sauvegarde** : JSON (Newtonsoft) dans `Application.persistentDataPath`, champ `Version` + migrations successives, écriture atomique (fichier temporaire puis remplacement), sauvegarde à chaque achat, fin de run et `OnApplicationPause`.
