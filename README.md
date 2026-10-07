@@ -32,7 +32,7 @@ Assets/
   _Project/
     Art/ Audio/ Prefabs/
     Scenes/        Boot, Hub, Run
-    Data/          ScriptableObjects : Enemies, Upgrades, Waves, Islands, Keepers
+    Data/          ScriptableObjects : Enemies, Upgrades, Waves, Islands, Buildings, Keepers
     Scripts/
       Core/        Game.Core        C# pur, sans UnityEngine
       Data/        Game.Data        définitions ScriptableObject, UpgradeEffect, GameCatalog
@@ -42,6 +42,7 @@ Assets/
       Services/    Game.Services    pubs, IAP, analytics, sauvegarde (+ Fakes éditeur)
       UI/          Game.UI
       Bootstrap/   Game.Bootstrap   composition root VContainer
+      Editor/      Game.Editor      outils d'éditeur (plateforme Editor uniquement)
     Tests/
       EditMode/    Game.Tests.EditMode
       PlayMode/    Game.Tests.PlayMode
@@ -50,11 +51,12 @@ ProjectSettings/   réglages du projet (versionnés)
 docs/              brief et documentation
 ```
 
-L'arborescence `_Project` et les assemblies sont mises en place par le ticket OPS-004.
+Une asmdef par dossier de `Scripts/` (matrice de dépendances : [CLAUDE.md](CLAUDE.md), section Architecture), vérifiée par les tests EditMode `AssemblyDefinitionTests` (assemblies compilées, références autorisées, `Game.Core` sans `UnityEngine`). Chaque assembly applicative contient un `AssemblyInfo.cs` (`InternalsVisibleTo("Game.Tests.EditMode")`) : une asmdef sans script ne produit aucune assembly.
 
 ## Fichiers versionnés
 
 - Sérialisation **Force Text** et **Visible Meta Files** : chaque fichier `.meta` est versionné avec son asset.
+- Dossier vide sous `Assets/` : un `.gitkeep` (ignoré par Unity, car caché) le fait exister dans git, avec le `.meta` du dossier.
 - Git LFS pour les sources lourdes : images (`png`, `jpg`, `psd`, `tga`…), audio (`wav`, `ogg`, `mp3`…), vidéo, polices, modèles (voir `.gitattributes`).
 - `Library/`, `Temp/`, `Logs/`, `UserSettings/`, builds et fichiers de solution générés sont ignorés.
 

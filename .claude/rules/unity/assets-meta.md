@@ -14,6 +14,8 @@ paths:
   chaque nouvel asset est accompagné de son `.meta`.
 - Déplacer ou renommer un asset avec son `.meta` (`git mv` des deux), jamais l'un sans l'autre.
 - Ne jamais modifier le GUID d'un `.meta` existant.
+- Dossier vide à versionner : y placer un `.gitkeep` (fichier caché, ignoré par Unity) et versionner
+  le `.meta` du dossier ; supprimer le `.gitkeep` quand le dossier reçoit un asset.
 
 ## Scènes, prefabs et assets sérialisés
 

@@ -1,0 +1,14 @@
+{
+    "name": "Game.Meta",
+    "rootNamespace": "Game.Meta",
+    "references": ["Game.Core", "Game.Data"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

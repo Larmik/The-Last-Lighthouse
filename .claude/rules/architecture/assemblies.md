@@ -25,6 +25,9 @@ paths:
 - Les paquets tiers (VContainer, UniTask, Newtonsoft…) ne sont référencés que par les assemblies
   qui en ont besoin ; `Game.Core` n'en référence aucun qui dépende de `UnityEngine`.
 - Références d'asmdef par nom (pas par GUID).
+- Nouvelle assembly `Game.*` ou nouvelle référence entre assemblies : mettre à jour la matrice de
+  `Tests/EditMode/AssemblyDefinitionTests.cs` en même temps que celle-ci.
+- Chaque assembly applicative garde son `AssemblyInfo.cs` (`InternalsVisibleTo` vers les tests).
 
 ## Où placer le code
 
