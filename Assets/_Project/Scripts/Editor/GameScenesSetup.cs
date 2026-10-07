@@ -50,14 +50,14 @@ namespace Game.Editor
 
             if (scene == GameScene.Boot)
             {
-                AddBootStartup(path);
+                AddGameLifetimeScope(path);
             }
         }
 
-        private static void AddBootStartup(string path)
+        private static void AddGameLifetimeScope(string path)
         {
             var bootScene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
-            new GameObject(nameof(BootStartup), typeof(BootStartup));
+            new GameObject(nameof(GameLifetimeScope), typeof(GameLifetimeScope));
             EditorSceneManager.SaveScene(bootScene);
         }
     }

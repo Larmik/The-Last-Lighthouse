@@ -7,7 +7,9 @@
         "Game.Core",
         "Game.Data",
         "Game.Services",
-        "UniTask"
+        "Game.Bootstrap",
+        "UniTask",
+        "VContainer"
     ],
     "includePlatforms": ["Editor"],
     "excludePlatforms": [],

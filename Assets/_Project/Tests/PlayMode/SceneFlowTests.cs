@@ -4,8 +4,10 @@ using Cysharp.Threading.Tasks;
 using Game.Bootstrap;
 using Game.Data.Scenes;
 using NUnit.Framework;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using VContainer;
 
 namespace Game.Tests.PlayMode
 {
@@ -13,21 +15,38 @@ namespace Game.Tests.PlayMode
     {
         private const int BootToHubTimeoutMilliseconds = 10000;
 
-        [UnityTest]
-        public IEnumerator SceneLoader_FromBoot_ReachesHubThenRunThenHub() => UniTask.ToCoroutine(async () =>
+        [TearDown]
+        public void TearDown()
         {
-            var sceneLoader = new SceneLoader();
+            foreach (var scope in Object.FindObjectsByType<GameLifetimeScope>(FindObjectsSortMode.None))
+            {
+                Object.Destroy(scope.gameObject);
+            }
+        }
 
-            await sceneLoader.LoadAsync(GameScene.Boot, CancellationToken.None);
+        [UnityTest]
+        public IEnumerator BootScene_OnStart_ReachesHubThenRunThenHub() => UniTask.ToCoroutine(async () =>
+        {
+            await SceneManager.LoadSceneAsync(nameof(GameScene.Boot), LoadSceneMode.Single).ToUniTask();
             await WaitForActiveSceneAsync(GameScene.Hub);
             Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo(nameof(GameScene.Hub)));
+
+            var sceneLoader = FindSingleGameLifetimeScope().Container.Resolve<ISceneLoader>();
 
             await sceneLoader.LoadAsync(GameScene.Run, CancellationToken.None);
             Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo(nameof(GameScene.Run)));
 
             await sceneLoader.LoadAsync(GameScene.Hub, CancellationToken.None);
             Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo(nameof(GameScene.Hub)));
+            Assert.That(FindSingleGameLifetimeScope().Container.Resolve<ISceneLoader>(), Is.SameAs(sceneLoader));
         });
+
+        private static GameLifetimeScope FindSingleGameLifetimeScope()
+        {
+            var scopes = Object.FindObjectsByType<GameLifetimeScope>(FindObjectsSortMode.None);
+            Assert.That(scopes, Has.Length.EqualTo(1));
+            return scopes[0];
+        }
 
         private static async UniTask WaitForActiveSceneAsync(GameScene scene)
         {
