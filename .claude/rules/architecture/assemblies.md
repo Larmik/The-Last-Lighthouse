@@ -11,11 +11,12 @@ paths:
 | Assembly | Peut référencer |
 |---|---|
 | `Game.Core` | rien (`noEngineReferences: true`, pas de `UnityEngine`) |
-| `Game.Economy` | Core |
-| `Game.Meta` | Core |
-| `Game.Gameplay` | Core, Economy |
+| `Game.Data` | Core |
+| `Game.Economy` | Core, Data |
+| `Game.Meta` | Core, Data |
+| `Game.Gameplay` | Core, Data, Economy |
 | `Game.Services` | Core |
-| `Game.UI` | Core, Economy, Meta, Gameplay |
+| `Game.UI` | Core, Data, Economy, Meta, Gameplay |
 | `Game.Bootstrap` | tout |
 | `Game.Tests.EditMode` / `Game.Tests.PlayMode` | les assemblies testées |
 
@@ -29,6 +30,9 @@ paths:
 
 - Calcul, règle, formule, état sans rendu → `Game.Core` / `Game.Economy` / `Game.Meta`, en C# pur
   testable en EditMode.
+- Définition ScriptableObject, `UpgradeEffect`, `GameCatalog`, contrats lus par plusieurs assemblies
+  (`IRunContext`) → `Game.Data`. Un champ prefab y est typé `GameObject`, jamais un composant de
+  Gameplay.
 - `MonoBehaviour`, rendu, entrées, pooling d'objets de scène → `Game.Gameplay` ou `Game.UI`.
 - SDK externe (AdMob, IAP, Firebase, Play Games) → uniquement dans `Game.Services`, derrière une
   interface ; aucune autre assembly ne voit le SDK.

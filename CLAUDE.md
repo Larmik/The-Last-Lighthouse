@@ -4,20 +4,22 @@ Guide de référence pour travailler sur **The Last Lighthouse** (titre de trava
 
 ## Source de vérité
 
-**[docs/Le_Dernier_Phare_Brief.pdf](docs/Le_Dernier_Phare_Brief.pdf)** fait foi pour le design, l'économie et l'architecture. Le lire (au moins les sections concernées) avant de coder une fonctionnalité.
+**[docs/BRIEF.md](docs/BRIEF.md)** fait foi pour le design, l'économie et l'architecture. Le lire (au moins les sections concernées) avant de coder une fonctionnalité. `docs/Le_Dernier_Phare_Brief.pdf` est la version d'origine, conservée comme archive : ne plus s'y référer.
 
 | Section du brief | Contenu |
 |---|---|
 | 1 | Décisions figées, conventions de code |
 | 2 | Vision, univers, îles, direction artistique, glossaire |
-| 3 | Gameplay : contrôle, combat, ennemis, run, cartes, difficulté, FTUE, méta |
-| 4 | Économie : monnaies, formules, énergie, hors ligne, pubs, IAP, Remote Config, analytics |
-| 5 | Architecture Unity : paquets, arborescence, assemblies, code de référence |
-| 6 | Plan de réalisation (jalons M0 à M6), publication |
-| 7 | Questions ouvertes |
+| 3 | Gameplay : contrôle, combat, ennemis, run, cartes (cumul, catalogue, tirage), difficulté, boss, interruptions, FTUE, performance, pistes, îles, bâtiments, Keepers |
+| 4 | Économie : monnaies, formules, énergie, quotidien et quêtes, pubs, IAP, Remote Config et surcharges, analytics, éthique |
+| 5 | Architecture Unity : paquets, arborescence, assemblies, Stat/StatBlock, définitions, faisceau, services, sauvegarde, run et UI |
+| 6 | Conformité et données (consentement, effacement, monnaie virtuelle) |
+| 7 | Plan de réalisation (jalons M0 à M6), publication |
+| 8 | Questions ouvertes |
 
 - Un point marqué **[A TRANCHER]** dans le brief : poser la question au développeur **avant** d'implémenter.
-- Les valeurs chiffrées du brief (PV, coûts, taux, délais) sont des valeurs **initiales** : elles vivent dans des ScriptableObjects et/ou Remote Config, **jamais en dur** dans le code.
+- Les valeurs chiffrées du brief (PV, coûts, taux, délais) sont des valeurs **initiales** : elles vivent dans des ScriptableObjects, surchargeables par Remote Config, **jamais en dur** dans le code. Celles marquées *(à simuler)* sont calées par le simulateur d'économie.
+- Une décision qui modifie le design se reporte dans `docs/BRIEF.md` dans la même PR.
 
 ## Le développeur
 
@@ -85,12 +87,14 @@ Assemblies sous `Assets/_Project/Scripts/` (une asmdef par dossier) :
 | Assembly | Rôle | Dépend de |
 |---|---|---|
 | `Game.Core` | C# pur (`noEngineReferences`) : Wallet, StatBlock, courbes, temps | — |
-| `Game.Economy` | Portefeuille, courbes, énergie, récompenses | Core |
-| `Game.Meta` | Progression, îles, bâtiments, keepers | Core |
-| `Game.Gameplay` | Faisceau, ennemis, vagues, `RunDirector` | Core, Economy |
+| `Game.Data` | Définitions ScriptableObject, `UpgradeEffect`, `IRunContext`, `GameCatalog` | Core |
+| `Game.Economy` | Portefeuille, courbes, énergie, récompenses | Core, Data |
+| `Game.Meta` | Progression, îles, bâtiments, keepers, quêtes | Core, Data |
+| `Game.Gameplay` | Faisceau, ennemis, vagues, `RunDirector` | Core, Data, Economy |
 | `Game.Services` | Interfaces + implémentations (pubs, IAP, analytics, Remote Config, sauvegarde) | Core |
-| `Game.UI` | Presenters (un par écran), sans logique métier | Core, Economy, Meta, Gameplay |
+| `Game.UI` | Presenters (un par écran), sans logique métier | Core, Data, Economy, Meta, Gameplay |
 | `Game.Bootstrap` | Composition root VContainer (`GameLifetimeScope`, `BootFlow`) | tout |
+| `Game.Editor` | Outils d'éditeur (validation du catalogue, menus), plateforme Editor uniquement | selon besoin |
 | `Game.Tests.EditMode` / `Game.Tests.PlayMode` | Unity Test Framework | selon besoin |
 
 **Jamais de dépendance inverse.** Une référence manquante entre assemblies se règle en revoyant le découpage, pas en ajoutant une dépendance à rebours.
@@ -100,11 +104,11 @@ Assemblies sous `Assets/_Project/Scripts/` (une asmdef par dossier) :
 - **RunDirector** : machine à états `Intro, Wave, UpgradeChoice, Boss, Victory, Defeat` ; possède la boucle Tick, le registre d'ennemis et le spawner poolé ; émet des événements C# écoutés par l'UI. `Time.timeScale = 0` pendant le choix de carte.
 - **Sauvegarde** : JSON (Newtonsoft) dans `Application.persistentDataPath`, champ `Version` + migrations successives, écriture atomique (fichier temporaire puis remplacement), sauvegarde à chaque achat, fin de run et `OnApplicationPause`.
 
-Paquets prévus (brief § 5.1) : URP 2D + Light 2D, Input System, VContainer, UniTask, DOTween ou LitMotion, Newtonsoft JSON, Localization + TextMeshPro, Google Mobile Ads + UMP, Unity IAP, Firebase (Analytics, Remote Config, Crashlytics, Messaging), Unity Test Framework.
+Paquets prévus (brief § 5.1) : URP 2D + Light 2D, Input System, VContainer, UniTask, LitMotion ou DOTween, Newtonsoft JSON, Localization + TextMeshPro, Google Mobile Ads + UMP, Unity IAP, Firebase (Analytics, Remote Config, Crashlytics), Mobile Notifications, Play Games Services, Unity Test Framework.
 
 ## Éthique du design
 
-Engagement par la progression et les choix, pas par la manipulation : pas de faux compte à rebours, pas de probabilités cachées, pas de pénalité brutale à l'absence, pas de pub forcée pendant l'action, pubs récompensées toujours facultatives, histoire jamais verrouillée derrière un paiement, aucune puissance de combat exclusive à l'achat.
+Engagement par la progression et les choix, pas par la manipulation : pas de faux compte à rebours, pas de probabilités cachées, pas de pénalité brutale à l'absence, pas de pub forcée pendant l'action, pubs récompensées toujours facultatives, histoire jamais verrouillée derrière un paiement, aucune puissance de combat exclusive à l'achat, aucun contenu aléatoire vendu (les coffres ne s'achètent jamais), chances de rareté affichées.
 
 ## Tests
 
