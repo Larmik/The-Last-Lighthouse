@@ -48,8 +48,11 @@ contexte), sauf un fichier dont le contenu a pu changer.
 4. Ce qui exige l'éditeur Unity (créer une scène, câbler un prefab, régler l'inspecteur, installer un
    module) : ne pas écrire le YAML à la main (`unity/assets-meta.md`) ; liste ces étapes comme
    **actions humaines**, pas à pas, ou fournis un menu d'éditeur qui les réalise.
-5. Reste dans le périmètre. Un problème découvert hors périmètre se **signale** (l'orchestrateur créera
-   l'issue), il ne se corrige pas en passant.
+5. Travail complémentaire : un besoin découvert en cours de route (ce qui aurait donné une nouvelle
+   issue) se **traite directement** dans ce ticket, pour éviter de futures dépendances entre tickets,
+   et se signale dans le résumé. Seulement s'il dépend d'un ticket encore ouvert, exige une action
+   humaine (compte, appareil, validation) ou relève d'un autre pôle sans lien, il se **signale**
+   (l'orchestrateur créera l'issue). Une décision de design reste une question au développeur.
 
 ### 3. Vérifier
 
@@ -108,7 +111,9 @@ Un **résumé concis** (valeur de retour, pas un message à l'utilisateur) :
 - **actions humaines** à faire dans l'éditeur, pas à pas ;
 - rules appliquées, créées ou enrichies ;
 - résultat de la relecture (§ 5) : points non satisfaits et pourquoi ;
-- problèmes hors périmètre à transformer en issues (titre, pôle, `chemin:ligne`) ;
+- travail complémentaire traité dans le ticket (quoi, pourquoi) ;
+- besoins non traitables ici à transformer en issues (titre, pôle, `chemin:ligne`, raison : dépendance
+  ouverte, action humaine ou autre pôle) ;
 - questions ouvertes ([A TRANCHER], conflits rule ↔ brief ↔ ticket).
 
 Ne commite pas. Ne conclus pas « c'est mergé » : tu prépares seulement le diff sur la branche.

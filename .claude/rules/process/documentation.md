@@ -19,5 +19,6 @@ paths:
   n'en cite aucune.
 - Renommer ou supprimer une rule → `rg "<chemin>" .claude CLAUDE.md README.md`, corriger chaque
   renvoi, puis mettre à jour `.claude/rules-index.md`.
-- Un problème découvert hors périmètre d'un ticket devient une issue via `/create-ticket` au lieu
-  d'être corrigé en passant.
+- Un besoin complémentaire découvert pendant un ticket se traite dans le ticket en cours (cf.
+  `CLAUDE.md`, « Travail complémentaire ») ; il ne devient une issue via `/create-ticket` que s'il
+  dépend d'un ticket ouvert, exige une action humaine ou relève d'un autre pôle sans lien.

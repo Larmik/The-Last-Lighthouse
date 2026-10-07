@@ -55,7 +55,7 @@ Build Android en ligne de commande (AAB et APK debug) : défini par le ticket OP
 - **Synchroniser avant de commencer** : `git fetch origin`, puis partir de `main` à jour (`git pull --ff-only`).
 - **Un ticket = une branche = une PR** : branche `feat/<CODE>` (ex. `feat/OPS-001`), commits préfixés par le code du ticket (`OPS-001: ...`), PR vers `main` qui ferme l'issue (`Closes #N`).
 - **Périmètre décidé par le développeur** : ne pas remettre en question le contenu d'une PR ni proposer de la scinder.
-- **Hors périmètre** : un problème découvert en dehors du ticket devient une issue via `/create-ticket`, il ne se corrige pas en passant.
+- **Travail complémentaire** : un besoin complémentaire découvert pendant un ticket (ce qui aurait donné une nouvelle issue) se traite directement dans le ticket en cours, pour éviter de futures dépendances entre tickets. Exceptions, qui deviennent une issue via `/create-ticket` : il dépend d'un ticket encore ouvert, exige une action humaine (compte, appareil, validation), ou relève d'un autre pôle sans lien avec le ticket. Une décision de design passe toujours par le développeur.
 - **Rules à portée** : les consignes par couche vivent dans `.claude/rules/**` (frontmatter `paths`, chargées à l'ouverture d'un fichier correspondant) ; index dans `.claude/rules-index.md`. Un hook refuse tout commentaire dans un `.cs`.
 
 ### Skills

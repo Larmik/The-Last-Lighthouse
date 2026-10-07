@@ -75,7 +75,11 @@ Lancer l'agent (`subagent_type: "ticket-worker"`) avec :
 - la consigne : lire `.claude/rules-index.md` et les sections du brief citées, respecter les rules,
   **aucune opération git** (lecture `git diff`/`git status` permise), vérifier via
   `.claude/scripts/unity-run.sh`, exécuter sa relecture finale (§ 5 du worker), puis retourner son
-  résumé.
+  résumé ;
+- la consigne **travail complémentaire** : s'il trouve des issues complémentaires à créer, il les
+  traite directement dans le ticket en cours pour éviter de futures dépendances entre tickets ; il ne
+  signale (pour `/create-ticket`) que ce qui dépend d'un ticket ouvert, exige une action humaine ou
+  relève d'un autre pôle sans lien.
 
 **Conserver l'identifiant de l'agent** : les rounds suivants continuent le même agent via
 `SendMessage`.
@@ -95,8 +99,11 @@ Lancer l'agent (`subagent_type: "ticket-worker"`) avec :
    ```
    Un `.meta` manquant → demander au développeur de passer sur l'éditeur Unity (import automatique),
    puis revérifier. Ne pas commiter sans.
-4. Un écart → le renvoyer au worker (même agent). Un problème **hors périmètre** signalé → créer son
-   issue via `/create-ticket` et la citer dans le résumé.
+4. Un écart → le renvoyer au worker (même agent). **Travail complémentaire** : un besoin découvert
+   pendant le ticket se traite directement dans le ticket en cours (consigne à rappeler au worker,
+   évite de futures dépendances entre tickets) et se mentionne dans la PR. Seul un besoin qui dépend
+   d'un ticket ouvert, exige une action humaine ou relève d'un autre pôle sans lien devient une issue
+   via `/create-ticket`, citée dans le résumé.
 
 ## 6. Commit / push / PR (dès la fin du worker)
 
