@@ -29,7 +29,7 @@ nouvelle. Dépôt **public** : aucun secret dans le contenu.
 ## 2. Ré-enquêter si utile
 
 Seulement si la précision touche une valeur du brief (relire la section concernée de
-`docs/Le_Dernier_Phare_Brief.pdf`) ou du code existant (`chemin:ligne` à jour). Sinon, passer.
+`docs/BRIEF.md`) ou du code existant (`chemin:ligne` à jour). Sinon, passer.
 
 ## 3. Re-rédiger le corps entier
 
@@ -46,7 +46,7 @@ Structure **exacte** du projet :
 <codes ou `Aucune`>
 
 ## Notes
-Référence : docs/Le_Dernier_Phare_Brief.pdf, section(s) <x.y>. Conventions : CLAUDE.md (code sans commentaires, diffs minimaux, une PR par ticket, commits préfixés par <CODE>-NNN).
+Référence : docs/BRIEF.md, § <x.y>. Conventions : CLAUDE.md (code sans commentaires, diffs minimaux, une PR par ticket, commits préfixés par <CODE>-NNN).
 ````
 
 - **Intégrer** les précisions dans les sections concernées, comme si le ticket avait été écrit

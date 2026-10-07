@@ -34,5 +34,7 @@ paths:
 
 - Renommer un champ sérialisé perd les valeurs saisies dans les assets : l'éviter, sinon ajouter
   `[FormerlySerializedAs("ancienNom")]`.
-- Effets de cartes exprimés en `StatModifier[]` (`PerStack`) ; logique spécifique seulement quand un
-  modificateur de stat ne suffit pas (brief § 3.6).
+- Toute valeur chiffrée d'une carte, d'une piste ou d'un Keeper est un `StatModifier` (`Flat` ou
+  `Percent`, pourcentages additifs par stat) ; ce qui n'est pas une valeur (soin, pulse, alliés) est un
+  `UpgradeEffect`. Pas de classe par carte (brief § 3.6, § 5.3, § 5.4).
+- Les surcharges Remote Config s'appliquent à des copies en mémoire, jamais aux assets (brief § 4.10).

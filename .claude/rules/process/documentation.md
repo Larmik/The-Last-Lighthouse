@@ -8,9 +8,9 @@ paths:
 
 # Documentation et configuration Claude
 
-- `docs/Le_Dernier_Phare_Brief.pdf` est la source de vérité : ne jamais le modifier. Une décision qui
-  s'en écarte (point [A TRANCHER] tranché, valeur rééquilibrée) se consigne dans `CLAUDE.md` ou dans
-  l'issue concernée, et se signale.
+- `docs/BRIEF.md` est la source de vérité. Une décision de design (point [A TRANCHER] tranché, valeur
+  rééquilibrée, règle précisée) s'y reporte dans la même PR que le changement qui l'applique.
+- `docs/Le_Dernier_Phare_Brief.pdf` est l'archive d'origine : ne jamais le modifier ni s'y référer.
 - `CLAUDE.md`, `README.md` et `.claude/` décrivent l'état **actuel** du projet : pas de récit
   historique (git le garde), pas de mention d'élément supprimé.
 - Un changement d'architecture, de commande, de paquet ou de convention met à jour la section

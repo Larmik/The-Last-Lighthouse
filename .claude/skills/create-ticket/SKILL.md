@@ -39,8 +39,8 @@ format** que les tickets existants.
    - la **priorité** (`P0` bloquant pour le jalon, `P1` important, `P2` confort) et le **jalon**
      (`M0 - Setup` … `M6 - Soft launch`, `Post-lancement`). En cas de doute, propose ton choix via
      `AskUserQuestion`.
-3. **Ancre dans le brief** : repère la ou les sections de `docs/Le_Dernier_Phare_Brief.pdf` concernées
-   (outil `Read` avec `pages`) pour reprendre les valeurs et contraintes exactes.
+3. **Ancre dans le brief** : repère la ou les sections de `docs/BRIEF.md` concernées
+   pour reprendre les valeurs et contraintes exactes.
 4. **Enquête dans le code** si le sujet touche de l'existant (`Assets/_Project/`) : fichiers en
    `chemin:ligne`, cause probable d'un bug. Pour une investigation large, délègue à un agent `Explore`.
    Ne sur-investigue pas.
@@ -75,7 +75,7 @@ quelles. Pour un BUG : comportement observé vs attendu, étapes de reproduction
 <Codes des tickets prérequis séparés par des virgules (ex. `CORE-001, OPS-004`), ou `Aucune`.>
 
 ## Notes
-Référence : docs/Le_Dernier_Phare_Brief.pdf, section(s) <x.y>. Conventions : CLAUDE.md (code sans commentaires, diffs minimaux, une PR par ticket, commits préfixés par <CODE>-NNN).
+Référence : docs/BRIEF.md, § <x.y>. Conventions : CLAUDE.md (code sans commentaires, diffs minimaux, une PR par ticket, commits préfixés par <CODE>-NNN).
 ````
 
 - Critères **vérifiables** (test vert, comportement observable, valeur attendue), 2 à 5 cases.

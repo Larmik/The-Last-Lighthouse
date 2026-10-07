@@ -15,7 +15,7 @@ paths:
 ## Noms
 
 - Identifiants en anglais, vocabulaire du glossaire du brief (§ 2.6) : `Light`, `Fragments`,
-  `Pearls`, `LampOil`, `Sparks`, `Integrity`, `Flare`, `Keeper`, `Wick`.
+  `Pearls`, `LampOil`, `Sparks`, `Integrity`, `Flare`, `Keeper`, `Wick`, `LogbookEntry`, `KeepersLuck`.
 - `PascalCase` pour types, méthodes, propriétés, événements et constantes ; `camelCase` pour champs
   privés, paramètres et locales, sans préfixe `_` ni `m_`.
 - Le nom décrit le rôle (`enemyRegistry`, `halfArc`), jamais une lettre seule (tolérés : `i`, `dt`).

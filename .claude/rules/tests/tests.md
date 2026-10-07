@@ -10,8 +10,8 @@ paths:
 
 - Logique pure (Core, Economy, Meta) : tests EditMode (Unity Test Framework, NUnit) livrés dans le
   même ticket que le code, quand le ticket les demande ou que la logique est un calcul du brief.
-- Priorités du brief (§ 5.6) : Wallet, EconomyCurves, StatBlock, régénération d'énergie, Light Cache
-  hors ligne, tirage de cartes (poids et plafonds).
+- Priorités du brief (§ 5.8) : Wallet, EconomyCurves, StatBlock, régénération d'énergie, Light Cache
+  hors ligne, tirage de cartes (poids, plafonds, repli), jour de jeu et série.
 - Valeurs attendues tirées du brief quand il les donne (ex. coûts de piste 80, 106, 139… ; XP
   `round(8 × 1,25^n)`), avec tolérance explicite pour les flottants.
 - Le temps est injecté (`ITimeProvider` factice) : aucun test ne dépend de l'horloge réelle.

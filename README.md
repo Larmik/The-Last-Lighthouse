@@ -2,7 +2,7 @@
 
 Jeu mobile Android (Unity 6, 2D URP, C#) : roguelite court (runs de 2 à 4 min) avec méta-progression idle autour d'un archipel à restaurer. Le joueur, dernier gardien, oriente d'un doigt le faisceau d'un phare pour repousser les créatures de la mer, puis rallume l'archipel îlot par îlot.
 
-- **Source de vérité** : [docs/Le_Dernier_Phare_Brief.pdf](docs/Le_Dernier_Phare_Brief.pdf) (brief de conception et d'architecture)
+- **Source de vérité** : [docs/BRIEF.md](docs/BRIEF.md) (brief de conception et d'architecture ; `docs/Le_Dernier_Phare_Brief.pdf` en est la version d'origine archivée)
 - **Guide de travail (humain et Claude Code)** : [CLAUDE.md](CLAUDE.md)
 - **Suivi** : GitHub Issues et le projet « The Last Lighthouse » (jalons M0 à M6)
 

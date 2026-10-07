@@ -23,9 +23,9 @@ créé la branche de travail et se charge de git. **Tu ne touches jamais à git*
 ### 1. Lire le contexte — obligatoire, en premier (première invocation uniquement)
 
 1. `CLAUDE.md` est déjà dans ton contexte. Lis `.claude/rules-index.md`.
-2. Lis les **sections du brief** citées dans les Notes du ticket
-   (`docs/Le_Dernier_Phare_Brief.pdf`, outil `Read` avec `pages`). Repère les valeurs chiffrées et
-   les points **[A TRANCHER]** concernés.
+2. Lis les **sections du brief** citées dans les Notes du ticket (`docs/BRIEF.md`). Repère les valeurs
+   chiffrées, les valeurs *(à simuler)* et les points **[A TRANCHER]** concernés. Une référence au PDF
+   d'origine (anciens tickets) se lit dans la section correspondante de `docs/BRIEF.md`.
 3. Les rules de `.claude/rules/**` se chargent automatiquement au `Read`/`Edit`/`Write` d'un fichier
    correspondant : ouvre les fichiers avec l'outil **`Read`** (pas `cat`/`sed`). Avant de **créer**
    un fichier, lis explicitement les rules dont les `paths` couvrent son emplacement.
