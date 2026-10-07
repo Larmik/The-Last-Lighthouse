@@ -92,6 +92,7 @@ Chaque point porte un identifiant, l'impact, le premier jalon concerné et une *
 | ✅ T3 | **Niveaux de qualité graphique** : ART-015 parle d'un réglage de qualité, mais aucun ticket ne définit les niveaux (bas, moyen, haut) ni leur détection automatique. | Nouveau ticket QA/OPS : niveaux URP et choix automatique selon l'appareil. | M5 |
 | ✅ T4 | **Appareil « milieu de gamme »** non défini pour la cible 60 fps. | Fixer un appareil de référence (ex. modèle Android de 2022, 4 Go de RAM) dans QA-003. | M1 |
 | ✅ T5 | **Taille de l'app** : aucun budget. | Budget AAB (ex. < 150 Mo) dans REL-007. | M6 |
+| ✅ T6 | Les définitions ScriptableObject exigent `UnityEngine` (interdit dans Core) ; Meta et Economy ne pouvaient pas les lire sans dépendre de Gameplay ; `EnemyDefinition` référençait `EnemyView` (Gameplay). Constaté en préparant la matrice de couverture. | **Décidé** : nouvelle assembly **`Game.Data`** (définitions, `UpgradeEffect`, `IRunContext`, `GameCatalog`), dépendant de Core ; Economy, Meta, Gameplay et UI en dépendent ; champs prefab typés `GameObject`. | M0 |
 
 ## 7. Décisions prises dans les tickets, absentes du brief (à confirmer)
 

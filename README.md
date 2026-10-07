@@ -35,6 +35,7 @@ Assets/
     Data/          ScriptableObjects : Enemies, Upgrades, Waves, Islands, Keepers
     Scripts/
       Core/        Game.Core        C# pur, sans UnityEngine
+      Data/        Game.Data        définitions ScriptableObject, UpgradeEffect, GameCatalog
       Economy/     Game.Economy     portefeuille, courbes, énergie, récompenses
       Meta/        Game.Meta        progression, îles, bâtiments, keepers
       Gameplay/    Game.Gameplay    faisceau, ennemis, vagues, RunDirector

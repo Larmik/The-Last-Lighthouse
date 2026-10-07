@@ -22,10 +22,10 @@ Racine des scripts : `Assets/_Project/Scripts/` (abrégée `…/`).
 | Fichier | Sujet | `paths` principaux |
 |---|---|---|
 | `csharp/style.md` | aucun commentaire, noms anglais, `sealed`, `[SerializeField] private`, diffs minimaux | `Assets/_Project/**/*.cs` |
-| `architecture/assemblies.md` | matrice de dépendances des asmdef, où placer le code, namespaces | `…/**`, `Assets/_Project/Tests/**` |
+| `architecture/assemblies.md` | matrice de dépendances des asmdef (dont `Game.Data`), où placer le code, namespaces | `…/**`, `Assets/_Project/Tests/**` |
 | `architecture/services.md` | interface + Fake, constantes de placements/produits/clés, VContainer, UniTask | `…/Services/**`, `…/Bootstrap/**` |
 | `gameplay/performance.md` | boucle `Tick` unique, zéro allocation, pooling, faisceau sans Physics2D, cache | `…/Gameplay/**`, `…/UI/**` |
-| `data/scriptableobjects.md` | aucune valeur d'équilibrage en dur, définitions, `Id` stable, `GameCatalog`, `FormerlySerializedAs` | `Assets/_Project/Data/**`, `…/**/*Definition.cs`, `…/Economy/**`, `…/Meta/**`, `…/Gameplay/**` |
+| `data/scriptableobjects.md` | aucune valeur d'équilibrage en dur, définitions, `Id` stable, `GameCatalog`, `FormerlySerializedAs` | `Assets/_Project/Data/**`, `…/Data/**`, `…/**/*Definition.cs`, `…/Economy/**`, `…/Meta/**`, `…/Gameplay/**` |
 | `data/save-time.md` | sauvegarde versionnée et atomique, `ITimeProvider`, calcul par horodatages | `…/Core/**`, `…/Economy/**`, `…/Meta/**`, `…/Services/**` |
 | `ui/ui.md` | presenters sans logique métier, Localization, safe area, pubs facultatives | `…/UI/**`, `Assets/_Project/Prefabs/UI/**` |
 | `unity/assets-meta.md` | `.meta` obligatoires, pas de YAML de scène à la main, paquets épinglés, `ProjectSettings` | `Assets/**`, `Packages/**`, `ProjectSettings/**` |

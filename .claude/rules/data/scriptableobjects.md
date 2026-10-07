@@ -1,6 +1,7 @@
 ---
 paths:
   - "Assets/_Project/Data/**"
+  - "Assets/_Project/Scripts/Data/**"
   - "Assets/_Project/Scripts/**/*Definition.cs"
   - "Assets/_Project/Scripts/**/GameCatalog.cs"
   - "Assets/_Project/Scripts/Economy/**"
