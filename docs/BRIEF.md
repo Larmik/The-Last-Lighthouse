@@ -811,8 +811,15 @@ public sealed class PlayerSave
 - `IslandState` : boss vaincu, niveaux des bâtiments, défaites consécutives (assistance).
 - `EnergyState` : quantité, horodatage de dernière régénération, bonus au-delà du plafond.
 - `DailyState` : jour du cycle, horodatage de la dernière réclamation, série, jour pardonné utilisé (fenêtre glissante).
-- `AdCounters` : compteurs par jour (`extra_lamp_oil`, `light_cache_x2`), horodatage du dernier interstitiel, runs depuis le dernier interstitiel.
-- `PlayerSettings` : volumes, haptique, gaucher, tremblement d'écran, qualité, langue.
+- `QuestState` : horodatage d'attribution, quêtes actives (`QuestProgress` : `Id` de la quête, progression, réclamée), bonus des trois quêtes réclamé.
+- `AdCounters` : compteurs par jour par placement (`extra_lamp_oil`, `light_cache_x2`) et horodatage du jour de ces compteurs, horodatage du dernier interstitiel, runs depuis le dernier interstitiel.
+- `SeasonState` : `Id` de la saison, XP, paliers gratuits et premium réclamés ; l'achat du pass se lit dans `OwnedProducts`.
+- `TutorialState` : run tutoriel terminée, étapes FTUE accomplies.
+- `RunInProgress` (marqueur de run en cours, § 3.9) : `Id` de l'île, vague, horodatage de début, Lamp Oil débité ou non (rien n'est remboursé pour une run gratuite).
+- `PlayerSettings` : volumes musique et effets (1 par défaut), haptique (activée), gaucher (désactivé), tremblement d'écran (activé), qualité `GraphicsQuality` (`Auto`, `Low`, `Medium`, `High` ; `Auto` = choix automatique au premier lancement, § 3.11), langue (vide = langue du système).
+- **Défauts neutres** : tout champ absent ou nul du JSON reprend sa valeur par défaut (collections et sous-états vides, monnaies et énergie à 0, horodatages à 0 = jamais, `HighestIsland` = 1, pas de run en cours). Le contenu de départ d'une partie (énergie pleine selon `lamp_oil_max`…) est posé à la création de la partie à partir de la configuration, jamais par le modèle.
+- **Horodatages** : millisecondes Unix UTC (`long`).
+- **Versionnage** : `Version` absent = version 1 ; chaque migration transforme le JSON brut de la version N vers N+1 avant désérialisation ; une sauvegarde plus récente que l'app ou illisible est refusée sans être écrasée.
 - Fichier JSON dans `Application.persistentDataPath`, champ `Version` et migrations successives, écriture atomique (fichier temporaire puis remplacement) avec copie de secours, sauvegarde à chaque achat, fin de run et `OnApplicationPause(true)`.
 - Sauvegarde cloud (Play Games) avec résolution de conflit sans perte de monnaie premium.
 

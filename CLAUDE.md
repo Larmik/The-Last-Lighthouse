@@ -88,7 +88,7 @@ Assemblies sous `Assets/_Project/Scripts/` (une asmdef par dossier) :
 
 | Assembly | Rôle | Dépend de |
 |---|---|---|
-| `Game.Core` | C# pur (`noEngineReferences`) : Wallet, StatBlock, courbes, temps | — |
+| `Game.Core` | C# pur (`noEngineReferences`, seul DLL : Newtonsoft) : Wallet, StatBlock, courbes, temps, modèle `PlayerSave` et migrations | — |
 | `Game.Data` | Définitions ScriptableObject, `UpgradeEffect`, `IRunContext`, `GameCatalog` | Core |
 | `Game.Economy` | Portefeuille, courbes, énergie, récompenses | Core, Data |
 | `Game.Meta` | Progression, îles, bâtiments, keepers, quêtes | Core, Data |

@@ -10,7 +10,7 @@ paths:
 
 | Assembly | Peut référencer |
 |---|---|
-| `Game.Core` | rien (`noEngineReferences: true`, pas de `UnityEngine`) |
+| `Game.Core` | aucune asmdef (`noEngineReferences: true`, pas de `UnityEngine`) ; seul DLL précompilé : `Newtonsoft.Json.dll` (`overrideReferences: true`) |
 | `Game.Data` | Core |
 | `Game.Economy` | Core, Data |
 | `Game.Meta` | Core, Data |
