@@ -18,6 +18,14 @@ paths:
 - Aucun texte affiché en dur : clé de table Unity Localization (anglais au lancement).
 - Clés en `snake_case` anglais, préfixées par l'écran (`hub_play_button`, `run_wave_label`).
 - TextMeshPro pour tout texte.
+- Montants affichés via le formateur partagé de Game.Core (milliers, puis K / M / B), jamais de
+  formatage ad hoc (brief § 5.8).
+
+## Pause et temps
+
+- Pendant le choix de carte et la pause, `Time.timeScale = 0` : animations et tweens d'UI en temps
+  non mis à l'échelle.
+- Le bouton retour Android ouvre la pause en run et ne quitte jamais l'app pendant une run.
 
 ## Mobile
 
@@ -26,4 +34,5 @@ paths:
 - Ignorer la visée du faisceau quand le pointeur est sur un élément d'UI.
 - Lisibilité : information jamais portée par la couleur seule (forme, icône, texte).
 - Pubs récompensées présentées comme facultatives, avec la récompense affichée avant le choix ; pas
-  de faux compte à rebours ni de probabilité cachée (brief, éthique du design).
+  de faux compte à rebours ni de probabilité cachée : chances de rareté affichées dans le choix de
+  cartes (brief § 3.6, § 4.10).

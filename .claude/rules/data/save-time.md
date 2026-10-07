@@ -18,12 +18,16 @@ paths:
   écraser la dernière valide.
 - Sauvegarder à chaque achat, fin de run et `OnApplicationPause(true)`.
 - La sauvegarde stocke des identifiants (`Id` des définitions), jamais de références d'assets.
+- Une run en cours est signalée par un marqueur écrit au début et à chaque vague, effacé en fin de
+  run ; trouvé au démarrage, il déclenche la règle de remboursement du Lamp Oil (brief § 3.9).
 
 ## Temps
 
 - Tout calcul temporel (énergie, Light Cache hors ligne, récompenses quotidiennes, série, limites
-  par jour) lit l'heure via `ITimeProvider` (UTC, injectable en test), jamais `DateTime.Now` ni
-  `Time.time`.
+  par jour) lit l'heure via `ITimeProvider` (`UtcNow` et `LocalOffset`, injectable en test), jamais
+  `DateTime.Now` ni `Time.time`.
+- Jour de jeu : minuit **local** ; jamais moins de 20 h (`daily_min_hours_between_claims`) entre deux
+  réclamations, quel que soit le changement de fuseau ou d'horloge (brief § 4.6).
 - Calcul à partir d'horodatages à la reprise, jamais de timer en mémoire (brief § 4.4).
 - Plafonds appliqués au calcul : hors ligne `min(écoulé, offline_cap_hours)`, régénération arrêtée au
   plafond, bonus jamais retirés.

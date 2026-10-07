@@ -19,6 +19,10 @@ paths:
 - Toute lecture Remote Config passe par `IRemoteConfigService.Get(key, fallback)` avec la valeur du
   brief comme repli.
 - Aucune demande de pub avant le consentement UMP ; aucune pub pendant l'action (brief § 4.7).
+- Le consentement UMP pilote aussi Firebase Analytics (Consent Mode) et Crashlytics ; aucun
+  événement analytics ne porte de donnée personnelle (brief § 6).
+- Temps de confiance : en-tête HTTP `Date` d'une requête déjà faite, repli local hors ligne ; jamais
+  d'appel réseau dédié bloquant le démarrage (brief § 4.4).
 
 ## Injection (VContainer)
 

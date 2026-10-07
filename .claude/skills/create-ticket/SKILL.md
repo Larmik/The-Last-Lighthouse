@@ -85,6 +85,9 @@ Référence : docs/BRIEF.md, § <x.y>. Conventions : CLAUDE.md (code sans commen
 - Action dans l'éditeur Unity, compte externe ou fichier fourni par le développeur : ajouter en fin
   de Notes `**Action humaine requise** : <quoi>` et le label `needs-human`.
 - Point [A TRANCHER] du brief concerné : le mentionner dans les Notes.
+- Le ticket introduit une règle ou une valeur absente de `docs/BRIEF.md` : la signaler à l'utilisateur
+  et ajouter le critère « `docs/BRIEF.md` mis à jour (§ x.y) » ; ne jamais trancher seul une
+  décision de design dans un ticket.
 
 ## 4. Labels
 

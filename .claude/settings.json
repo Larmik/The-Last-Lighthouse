@@ -49,7 +49,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.command // empty' | head -n 1 | grep -qE '(^|&&|;)[[:space:]]*gh pr create( |$)' && printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolUse\", \"additionalContext\": \"Rappel PR : (1) relecture du diff avec la checklist § 4 de .claude/agents/ticket-worker.md ; (2) chaque nouvel asset a son .meta ; (3) CLAUDE.md / README.md / .claude/rules à jour si l architecture ou une convention a changé (process/documentation.md) ; puis commit + push sur la branche de la PR.\"}}' || true"
+            "command": "jq -r '.tool_input.command // empty' | head -n 1 | grep -qE '(^|&&|;)[[:space:]]*gh pr create( |$)' && printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolUse\", \"additionalContext\": \"Rappel PR : (1) relecture du diff avec la checklist § 5 de .claude/agents/ticket-worker.md ; (2) chaque nouvel asset a son .meta ; (3) docs/BRIEF.md à jour si une décision de design a changé, CLAUDE.md / README.md / .claude/rules à jour si l architecture ou une convention a changé (process/documentation.md) ; puis commit + push sur la branche de la PR.\"}}' || true"
           }
         ]
       }

@@ -23,11 +23,11 @@ Racine des scripts : `Assets/_Project/Scripts/` (abrégée `…/`).
 |---|---|---|
 | `csharp/style.md` | aucun commentaire, noms anglais, `sealed`, `[SerializeField] private`, diffs minimaux | `Assets/_Project/**/*.cs` |
 | `architecture/assemblies.md` | matrice de dépendances des asmdef (dont `Game.Data`), où placer le code, namespaces | `…/**`, `Assets/_Project/Tests/**` |
-| `architecture/services.md` | interface + Fake, constantes de placements/produits/clés, VContainer, UniTask | `…/Services/**`, `…/Bootstrap/**` |
+| `architecture/services.md` | interface + Fake, constantes de placements/produits/clés, consentement (pubs, Analytics, Crashlytics), temps de confiance, VContainer, UniTask | `…/Services/**`, `…/Bootstrap/**` |
 | `gameplay/performance.md` | boucle `Tick` unique, zéro allocation, pooling, faisceau sans Physics2D, cache | `…/Gameplay/**`, `…/UI/**` |
 | `data/scriptableobjects.md` | aucune valeur d'équilibrage en dur, définitions, `Id` stable, `GameCatalog`, `FormerlySerializedAs` | `Assets/_Project/Data/**`, `…/Data/**`, `…/**/*Definition.cs`, `…/Economy/**`, `…/Meta/**`, `…/Gameplay/**` |
-| `data/save-time.md` | sauvegarde versionnée et atomique, `ITimeProvider`, calcul par horodatages | `…/Core/**`, `…/Economy/**`, `…/Meta/**`, `…/Services/**` |
-| `ui/ui.md` | presenters sans logique métier, Localization, safe area, pubs facultatives | `…/UI/**`, `Assets/_Project/Prefabs/UI/**` |
+| `data/save-time.md` | sauvegarde versionnée et atomique, marqueur de run en cours, `ITimeProvider`, minuit local et délai de 20 h, calcul par horodatages | `…/Core/**`, `…/Economy/**`, `…/Meta/**`, `…/Services/**` |
+| `ui/ui.md` | presenters sans logique métier, Localization, formateur de nombres, pause et temps non mis à l'échelle, safe area, pubs facultatives, chances affichées | `…/UI/**`, `Assets/_Project/Prefabs/UI/**` |
 | `unity/assets-meta.md` | `.meta` obligatoires, pas de YAML de scène à la main, paquets épinglés, `ProjectSettings` | `Assets/**`, `Packages/**`, `ProjectSettings/**` |
 | `tests/tests.md` | EditMode pour la logique pure, valeurs du brief, temps injecté, nommage | `Assets/_Project/Tests/**`, `…/Core/**`, `…/Economy/**`, `…/Meta/**` |
 | `process/documentation.md` | brief intouchable, doc à jour sans historique, renvois de rules, hors périmètre → issue | `docs/**`, `.claude/**`, `CLAUDE.md`, `README.md` |
