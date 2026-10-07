@@ -32,18 +32,16 @@ Développeur mobile expérimenté (Kotlin, Swift) mais **débutant en Unity**. E
 
 ## Commandes
 
-Les commandes en ligne de commande exigent que l'éditeur Unity **ne soit pas ouvert** sur le projet (verrou du projet).
+Le batchmode exige que l'éditeur Unity **ne soit pas ouvert** sur le projet (verrou du projet) : les scripts le détectent et sortent avec le code 3 (`EDITOR_OPEN`).
 
 ```bash
-UNITY="/Applications/Unity/Hub/Editor/6000.6.4f1/Unity.app/Contents/MacOS/Unity"
-
-# Tests EditMode (logique pure) / PlayMode
-"$UNITY" -batchmode -nographics -projectPath . -runTests -testPlatform EditMode -testResults Logs/editmode-results.xml -logFile -
-"$UNITY" -batchmode -nographics -projectPath . -runTests -testPlatform PlayMode -testResults Logs/playmode-results.xml -logFile -
-
-# Compilation seule (vérifier que le projet compile)
-"$UNITY" -batchmode -nographics -projectPath . -quit -logFile -
+.claude/scripts/unity-run.sh Compile    # compilation seule (erreurs error CS)
+.claude/scripts/unity-run.sh EditMode   # tests EditMode (logique pure), résumé TOTAL/PASSED/FAILED
+.claude/scripts/unity-run.sh PlayMode   # tests PlayMode
+.claude/scripts/unity-editor-open.sh    # "open" / "closed"
 ```
+
+Les logs et résultats vont dans `Logs/claude-<mode>.log` et `Logs/claude-<mode>-results.xml`.
 
 Build Android en ligne de commande (AAB et APK debug) : défini par le ticket OPS-007.
 
@@ -53,7 +51,18 @@ Build Android en ligne de commande (AAB et APK debug) : défini par le ticket OP
 - **Synchroniser avant de commencer** : `git fetch origin`, puis partir de `main` à jour (`git pull --ff-only`).
 - **Un ticket = une branche = une PR** : branche `feat/<CODE>` (ex. `feat/OPS-001`), commits préfixés par le code du ticket (`OPS-001: ...`), PR vers `main` qui ferme l'issue (`Closes #N`).
 - **Périmètre décidé par le développeur** : ne pas remettre en question le contenu d'une PR ni proposer de la scinder.
-- **Hors périmètre** : un problème découvert en dehors du ticket se signale (ou devient un ticket), il ne se corrige pas en passant.
+- **Hors périmètre** : un problème découvert en dehors du ticket devient une issue via `/create-ticket`, il ne se corrige pas en passant.
+- **Rules à portée** : les consignes par couche vivent dans `.claude/rules/**` (frontmatter `paths`, chargées à l'ouverture d'un fichier correspondant) ; index dans `.claude/rules-index.md`. Un hook refuse tout commentaire dans un `.cs`.
+
+### Skills
+
+| Skill | Usage |
+|---|---|
+| `/ticket-dev <#N ou CODE>` | ticket de bout en bout : branche `feat/<CODE>`, agent `ticket-worker`, commit / push / PR, retours, fusion, board |
+| `/create-ticket <description>` | nouvelle issue au format du projet (code `[CODE-NNN]`, labels, jalon, board) |
+| `/edit-ticket <#N> <précisions>` | réécrire une issue existante |
+| `/unity-tests [Compile\|EditMode\|PlayMode\|all]` | compiler et lancer les tests en batchmode |
+| `/clean-branches` | supprimer les branches mergées (local et distant, après confirmation) |
 
 ## Conventions de code
 
