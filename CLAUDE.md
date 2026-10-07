@@ -28,7 +28,9 @@ Développeur mobile expérimenté (Kotlin, Swift) mais **débutant en Unity**. E
 ## Projet
 
 - **Unity** : 6000.3.25f1 (Unity 6.3 LTS), 2D, URP, C#. Éditeur : `/Applications/Unity/Hub/Editor/6000.3.25f1/Unity.app/Contents/MacOS/Unity`
-- **Plateforme** : Android d'abord (IL2CPP, ARM64, AAB, minSdk 24, portrait verrouillé, 60 fps, vSync désactivé, textures ASTC). iOS éventuellement plus tard.
+- **Plateforme** : Android d'abord (IL2CPP, ARM64, AAB, minSdk 25, portrait verrouillé, 60 fps, vSync désactivé, textures ASTC). iOS éventuellement plus tard.
+- **minSdk 25 (Android 7.1)** : plus haute des contraintes du brief § 5.1. Plancher du brief : 24 ; minimum de Unity 6.3 : 25 (le module Android de 6000.3.25f1 ne propose pas d'API inférieure) ; SDK prévus (Google Mobile Ads + UMP, Unity IAP / Play Billing, Firebase, Mobile Notifications, Play Games Services, Play In-App Updates / Review) : 23 au plus. À revérifier à chaque épinglage ou mise à jour d'un SDK.
+- **Fréquence d'images** : `vSyncCount = 0` pour tous les niveaux de qualité, `Application.targetFrameRate = 60` posé avant le chargement de la première scène par `Game.Bootstrap.FrameRateSetup` (sans cela, Android plafonne à 30 fps).
 - **Langue du jeu** : anglais au lancement, via Unity Localization (français ensuite).
 - **Dépôt** : `Larmik/The-Last-Lighthouse`, branche par défaut **`main`**. Tickets : GitHub Issues, préfixés par pôle (`OPS`, `CORE`, `GAME`, `ECO`, `META`, `SVC`, `UI`, `ART`, `AUD`, `NARR`, `QA`, `REL`), jalons `M0 - Setup` à `M6 - Soft launch`.
 
