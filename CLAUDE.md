@@ -94,7 +94,7 @@ Assemblies sous `Assets/_Project/Scripts/` (une asmdef par dossier) :
 | `Game.Meta` | Progression, îles, bâtiments, keepers, quêtes | Core, Data |
 | `Game.Gameplay` | Faisceau, ennemis, vagues, `RunDirector` | Core, Data, Economy |
 | `Game.Services` | Interfaces + implémentations (pubs, IAP, analytics, Remote Config, sauvegarde) | Core |
-| `Game.UI` | Presenters (un par écran), sans logique métier | Core, Data, Economy, Meta, Gameplay |
+| `Game.UI` | Presenters (un par écran), sans logique métier | Core, Data, Economy, Meta, Gameplay, Services |
 | `Game.Bootstrap` | Composition root VContainer (`GameLifetimeScope`, `BootFlow`) | tout |
 | `Game.Editor` | Outils d'éditeur (validation du catalogue, menus), plateforme Editor uniquement | selon besoin |
 | `Game.Tests.EditMode` / `Game.Tests.PlayMode` | Unity Test Framework | selon besoin |

@@ -16,7 +16,7 @@ paths:
 | `Game.Meta` | Core, Data |
 | `Game.Gameplay` | Core, Data, Economy |
 | `Game.Services` | Core |
-| `Game.UI` | Core, Data, Economy, Meta, Gameplay |
+| `Game.UI` | Core, Data, Economy, Meta, Gameplay, Services |
 | `Game.Bootstrap` | tout |
 | `Game.Tests.EditMode` / `Game.Tests.PlayMode` | les assemblies testées |
 

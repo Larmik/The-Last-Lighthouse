@@ -492,7 +492,7 @@ Assets/
     Scenes/        Boot, Hub, Run
     Data/          Enemies, Upgrades, Waves, Islands, Buildings, Keepers (ScriptableObjects)
     Scripts/
-      Core/        Game.Core        C# pur, sans UnityEngine (noEngineReferences)
+      Core/        Game.Core        C# pur, sans UnityEngine (noEngineReferences), dont le temps (ITimeProvider)
       Data/        Game.Data        définitions ScriptableObject, UpgradeEffect, GameCatalog
       Economy/     Game.Economy     portefeuille, courbes, énergie, récompenses
       Meta/        Game.Meta        progression, îles, bâtiments, keepers, quêtes
@@ -506,7 +506,7 @@ Assets/
       PlayMode/    Game.Tests.PlayMode
 ```
 
-- **Dépendances** : Data dépend de Core ; Economy et Meta dépendent de Core et Data ; Gameplay dépend de Core, Data et Economy ; UI dépend de Core, Data, Economy, Meta, Gameplay ; Services dépend de Core ; Bootstrap dépend de tout. Jamais l'inverse.
+- **Dépendances** : Data dépend de Core ; Economy et Meta dépendent de Core et Data ; Gameplay dépend de Core, Data et Economy ; UI dépend de Core, Data, Economy, Meta, Gameplay et Services ; Services dépend de Core ; Bootstrap dépend de tout. Jamais l'inverse.
 - **Game.Data** existe parce qu'un ScriptableObject exige `UnityEngine` (interdit dans Core) et que Meta et Economy doivent lire les définitions sans dépendre de Gameplay. `Scripts/Data/` contient le code des définitions ; `_Project/Data/` contient les assets.
 - **Scènes** : Boot (initialise les services, charge la sauvegarde, puis charge Hub), Hub (archipel, améliorations, bâtiments, Keepers, boutique), Run (combat, une seule scène paramétrée par `IslandDefinition`).
 - Les services ont toujours une implémentation **Fake** pour l'éditeur afin de tester sans SDK.
@@ -715,15 +715,15 @@ public interface ITimeProvider
 public interface IAdService
 {
     bool IsRewardedReady { get; }
-    UniTask<bool> ShowRewardedAsync(string placement);
-    UniTask ShowInterstitialAsync(string placement);
+    UniTask<bool> ShowRewardedAsync(string placement, CancellationToken cancellationToken = default);
+    UniTask ShowInterstitialAsync(string placement, CancellationToken cancellationToken = default);
 }
 
 public interface IPurchaseService
 {
-    UniTask InitializeAsync();
-    UniTask<bool> PurchaseAsync(string productId);
-    UniTask RestoreAsync();
+    UniTask InitializeAsync(CancellationToken cancellationToken = default);
+    UniTask<bool> PurchaseAsync(string productId, CancellationToken cancellationToken = default);
+    UniTask RestoreAsync(CancellationToken cancellationToken = default);
     bool Owns(string productId);
 }
 
@@ -734,7 +734,7 @@ public interface IAnalyticsService
 
 public interface IConsentService
 {
-    UniTask<bool> GatherConsentAsync();
+    UniTask<bool> GatherConsentAsync(CancellationToken cancellationToken = default);
     bool CanRequestAds { get; }
     void ShowPrivacyOptions();
 }
@@ -774,7 +774,14 @@ public sealed class GameLifetimeScope : LifetimeScope
 }
 ```
 
-En éditeur, chaque service est remplacé par son Fake (`FakeAdService`, `FakePurchaseService`, `FakeTimeProvider`…).
+En éditeur, chaque service adossé à un SDK est remplacé par son Fake (`FakeAdService`, `FakePurchaseService`, `FakeConsentService`…).
+
+Les méthodes asynchrones des services prennent en dernier paramètre un `CancellationToken` optionnel, lié au cycle de vie de l'appelant ; une opération annulée lève `OperationCanceledException` sans effet (pas de récompense, d'achat ni de consentement enregistré).
+
+- **Temps** : `ITimeProvider`, `SystemTimeProvider` et `FakeTimeProvider` (temps avançable, fuseau modifiable) vivent dans `Game.Core` (`Game.Core.Time`), lisibles par Economy et Meta sans dépendre de Services. En éditeur, `SystemTimeProvider` reste le choix par défaut ; `FakeTimeProvider` sert aux tests.
+- **Sauvegarde** : `FakeSaveService` garde la sauvegarde en mémoire en passant par le même sérialiseur que `JsonSaveService` (tests, PlayMode sans disque).
+- **Fakes** : compilés partout, choisis au composition root ; ils lèvent `ArgumentException` sur une erreur de développeur (placement inconnu, identifiant vide, nom d'événement hors snake_case). Les implémentations réelles dégradent proprement (jeu jouable sans pub ni réseau).
+- **Constantes** : placements (`AdPlacements`) et produits (`ProductIds`) dans `Game.Services` ; les clés Remote Config et le catalogue d'événements analytics arrivent avec leurs services.
 
 ### 5.7 Sauvegarde
 

@@ -36,5 +36,7 @@ paths:
 - `UniTask` / `UniTask<T>` pour toute opération asynchrone ; pas de `Task`, pas de coroutine pour de
   la logique de service, pas de `async void`.
 - Passer un `CancellationToken` lié au cycle de vie (`destroyCancellationToken` côté MonoBehaviour).
+- Méthode asynchrone d'une interface de service : `CancellationToken cancellationToken = default` en
+  dernier paramètre ; annulée, elle lève `OperationCanceledException` sans effet (brief § 5.6).
 - Une opération asynchrone qui échoue (SDK absent, réseau) dégrade proprement : le jeu reste jouable
   hors ligne et sans pub.

@@ -1,7 +1,7 @@
 {
     "name": "Game.UI",
     "rootNamespace": "Game.UI",
-    "references": ["Game.Core", "Game.Data", "Game.Economy", "Game.Meta", "Game.Gameplay"],
+    "references": ["Game.Core", "Game.Data", "Game.Economy", "Game.Meta", "Game.Gameplay", "Game.Services"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
