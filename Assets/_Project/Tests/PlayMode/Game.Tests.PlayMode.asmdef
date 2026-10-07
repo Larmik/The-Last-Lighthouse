@@ -4,7 +4,9 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Game.Bootstrap"
+        "Game.Bootstrap",
+        "Game.Data",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
