@@ -1,0 +1,58 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "Bash(git fetch *)",
+      "Bash(gh issue view *)",
+      "Bash(gh issue list *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr list *)",
+      "Bash(gh pr checks *)",
+      "Bash(gh project item-list *)",
+      "Bash(gh project field-list *)",
+      "Bash(rg *)",
+      "Bash(find *)",
+      "Bash(ls *)",
+      "Bash(pgrep *)",
+      "Bash(adb devices)",
+      "Bash(adb logcat *)",
+      "Bash(.claude/scripts/unity-run.sh *)",
+      "Bash(.claude/scripts/unity-editor-open.sh)"
+    ],
+    "deny": [
+      "Read(**/google-services.json)",
+      "Read(**/GoogleService-Info.plist)",
+      "Read(**/*.keystore)",
+      "Read(**/*.jks)",
+      "Read(**/*.p12)",
+      "Read(./UserSettings/**)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-cs-comments.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.command // empty' | head -n 1 | grep -qE '(^|&&|;)[[:space:]]*gh pr create( |$)' && printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolUse\", \"additionalContext\": \"Rappel PR : (1) relecture du diff avec la checklist § 4 de .claude/agents/ticket-worker.md ; (2) chaque nouvel asset a son .meta ; (3) CLAUDE.md / README.md / .claude/rules à jour si l architecture ou une convention a changé (process/documentation.md) ; puis commit + push sur la branche de la PR.\"}}' || true"
+          }
+        ]
+      }
+    ]
+  }
+}
