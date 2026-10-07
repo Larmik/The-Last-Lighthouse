@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "Game.Core",
         "Game.Data",
-        "Game.Services"
+        "Game.Services",
+        "UniTask"
     ],
     "includePlatforms": ["Editor"],
     "excludePlatforms": [],

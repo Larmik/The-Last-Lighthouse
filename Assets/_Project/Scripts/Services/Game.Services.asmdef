@@ -1,7 +1,7 @@
 {
     "name": "Game.Services",
     "rootNamespace": "Game.Services",
-    "references": ["Game.Core"],
+    "references": ["Game.Core", "UniTask"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
