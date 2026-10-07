@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using Game.Services.Consent;
 using NUnit.Framework;
 
@@ -28,6 +30,15 @@ namespace Game.Tests.EditMode
             var granted = service.GatherConsentAsync().GetAwaiter().GetResult();
 
             Assert.That(granted, Is.False);
+            Assert.That(service.CanRequestAds, Is.False);
+        }
+
+        [Test]
+        public void GatherConsentAsync_Cancelled_ThrowsWithoutGranting()
+        {
+            var service = new FakeConsentService();
+
+            Assert.Throws<OperationCanceledException>(() => service.GatherConsentAsync(new CancellationToken(true)).GetAwaiter().GetResult());
             Assert.That(service.CanRequestAds, Is.False);
         }
 

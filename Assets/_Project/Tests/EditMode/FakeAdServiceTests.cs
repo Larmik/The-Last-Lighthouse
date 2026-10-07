@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Game.Services.Ads;
 using Game.Services.Consent;
 using NUnit.Framework;
@@ -76,6 +77,16 @@ namespace Game.Tests.EditMode
             Assert.That(service.RewardedShownCount, Is.Zero);
         }
 
+        [Test]
+        public void ShowRewardedAsync_Cancelled_ThrowsWithoutShowing()
+        {
+            GrantConsent();
+
+            Assert.Throws<OperationCanceledException>(() =>
+                service.ShowRewardedAsync(AdPlacements.Revive, new CancellationToken(true)).GetAwaiter().GetResult());
+            Assert.That(service.RewardedShownCount, Is.Zero);
+        }
+
         [TestCase(null)]
         [TestCase("")]
         [TestCase("unknown_placement")]
@@ -98,6 +109,16 @@ namespace Game.Tests.EditMode
             service.ShowInterstitialAsync(InterstitialPlacement).GetAwaiter().GetResult();
 
             Assert.That(service.InterstitialShownCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void ShowInterstitialAsync_Cancelled_ThrowsWithoutShowing()
+        {
+            GrantConsent();
+
+            Assert.Throws<OperationCanceledException>(() =>
+                service.ShowInterstitialAsync(InterstitialPlacement, new CancellationToken(true)).GetAwaiter().GetResult());
+            Assert.That(service.InterstitialShownCount, Is.Zero);
         }
 
         [TestCase(null)]

@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Game.Services.Purchases;
 using NUnit.Framework;
 
@@ -64,6 +65,33 @@ namespace Game.Tests.EditMode
             var purchased = service.PurchaseAsync(ProductIds.RemoveAds).GetAwaiter().GetResult();
 
             Assert.That(purchased, Is.False);
+            Assert.That(service.Owns(ProductIds.RemoveAds), Is.False);
+        }
+
+        [Test]
+        public void InitializeAsync_Cancelled_ThrowsWithoutInitializing()
+        {
+            Assert.Throws<OperationCanceledException>(() => service.InitializeAsync(new CancellationToken(true)).GetAwaiter().GetResult());
+            Assert.That(service.IsInitialized, Is.False);
+        }
+
+        [Test]
+        public void PurchaseAsync_Cancelled_ThrowsWithoutOwnership()
+        {
+            Initialize();
+
+            Assert.Throws<OperationCanceledException>(() =>
+                service.PurchaseAsync(ProductIds.RemoveAds, new CancellationToken(true)).GetAwaiter().GetResult());
+            Assert.That(service.Owns(ProductIds.RemoveAds), Is.False);
+        }
+
+        [Test]
+        public void RestoreAsync_Cancelled_ThrowsWithoutRestoring()
+        {
+            service.AddPreviousPurchase(ProductIds.RemoveAds);
+            Initialize();
+
+            Assert.Throws<OperationCanceledException>(() => service.RestoreAsync(new CancellationToken(true)).GetAwaiter().GetResult());
             Assert.That(service.Owns(ProductIds.RemoveAds), Is.False);
         }
 

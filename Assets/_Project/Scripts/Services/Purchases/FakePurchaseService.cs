@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 
 namespace Game.Services.Purchases
@@ -21,15 +22,18 @@ namespace Game.Services.Purchases
             accountProducts.Add(productId);
         }
 
-        public UniTask InitializeAsync()
+        public UniTask InitializeAsync(CancellationToken cancellationToken = default)
         {
+            if (cancellationToken.IsCancellationRequested) return UniTask.FromCanceled(cancellationToken);
+
             IsInitialized = true;
             return UniTask.CompletedTask;
         }
 
-        public UniTask<bool> PurchaseAsync(string productId)
+        public UniTask<bool> PurchaseAsync(string productId, CancellationToken cancellationToken = default)
         {
             RequireProductId(productId);
+            if (cancellationToken.IsCancellationRequested) return UniTask.FromCanceled<bool>(cancellationToken);
             if (!IsInitialized || !CompletesPurchases || Owns(productId)) return UniTask.FromResult(false);
 
             if (!ProductIds.IsConsumable(productId))
@@ -41,8 +45,10 @@ namespace Game.Services.Purchases
             return UniTask.FromResult(true);
         }
 
-        public UniTask RestoreAsync()
+        public UniTask RestoreAsync(CancellationToken cancellationToken = default)
         {
+            if (cancellationToken.IsCancellationRequested) return UniTask.FromCanceled(cancellationToken);
+
             if (IsInitialized) ownedProducts.UnionWith(accountProducts);
             return UniTask.CompletedTask;
         }

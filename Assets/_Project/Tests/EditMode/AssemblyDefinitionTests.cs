@@ -41,7 +41,7 @@ namespace Game.Tests.EditMode
             { MetaAssembly, new[] { CoreAssembly, DataAssembly } },
             { GameplayAssembly, new[] { CoreAssembly, DataAssembly, EconomyAssembly } },
             { ServicesAssembly, new[] { CoreAssembly } },
-            { UIAssembly, new[] { CoreAssembly, DataAssembly, EconomyAssembly, MetaAssembly, GameplayAssembly } },
+            { UIAssembly, new[] { CoreAssembly, DataAssembly, EconomyAssembly, MetaAssembly, GameplayAssembly, ServicesAssembly } },
             {
                 BootstrapAssembly,
                 new[] { CoreAssembly, DataAssembly, EconomyAssembly, MetaAssembly, GameplayAssembly, ServicesAssembly, UIAssembly }
