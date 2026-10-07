@@ -5,6 +5,6 @@ namespace Game.Core
         Light,
         Fragments,
         Pearls,
-        Oil
+        LampOil
     }
 }

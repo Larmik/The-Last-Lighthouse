@@ -38,7 +38,7 @@ namespace Game.Tests.EditMode
 
             Assert.That(wallet.Get(CurrencyType.Light), Is.EqualTo(0));
             Assert.That(wallet.Get(CurrencyType.Fragments), Is.EqualTo(0));
-            Assert.That(wallet.Get(CurrencyType.Oil), Is.EqualTo(0));
+            Assert.That(wallet.Get(CurrencyType.LampOil), Is.EqualTo(0));
         }
 
         [Test]
@@ -90,10 +90,10 @@ namespace Game.Tests.EditMode
         [Test]
         public void TrySpend_ExactBalance_LeavesZero()
         {
-            wallet.Add(CurrencyType.Oil, 1);
+            wallet.Add(CurrencyType.LampOil, 1);
 
-            Assert.That(wallet.TrySpend(CurrencyType.Oil, 1), Is.True);
-            Assert.That(wallet.Get(CurrencyType.Oil), Is.EqualTo(0));
+            Assert.That(wallet.TrySpend(CurrencyType.LampOil, 1), Is.True);
+            Assert.That(wallet.Get(CurrencyType.LampOil), Is.EqualTo(0));
         }
 
         [Test]
