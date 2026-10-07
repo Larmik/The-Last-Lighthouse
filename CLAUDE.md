@@ -106,7 +106,7 @@ Assemblies sous `Assets/_Project/Scripts/` (une asmdef par dossier) :
 - **RunDirector** : machine à états `Intro, Wave, UpgradeChoice, Boss, Victory, Defeat` ; possède la boucle Tick, le registre d'ennemis et le spawner poolé ; émet des événements C# écoutés par l'UI. `Time.timeScale = 0` pendant le choix de carte.
 - **Sauvegarde** : JSON (Newtonsoft) dans `Application.persistentDataPath`, champ `Version` + migrations successives, écriture atomique (fichier temporaire puis remplacement), sauvegarde à chaque achat, fin de run et `OnApplicationPause`.
 
-Paquets prévus (brief § 5.1) : URP 2D + Light 2D, Input System, VContainer, UniTask, LitMotion ou DOTween, Newtonsoft JSON, Localization + TextMeshPro, Google Mobile Ads + UMP, Unity IAP, Firebase (Analytics, Remote Config, Crashlytics), Mobile Notifications, Play Games Services, Unity Test Framework.
+Paquets (brief § 5.1, versions épinglées listées dans `README.md`) : URP 2D + Light 2D, Input System, VContainer, UniTask, LitMotion, Newtonsoft JSON, Localization + TextMeshPro, Unity Test Framework ; à venir avec les tickets SVC : Google Mobile Ads + UMP, Unity IAP, Firebase (Analytics, Remote Config, Crashlytics), Mobile Notifications, Play Games Services.
 
 ## Éthique du design
 

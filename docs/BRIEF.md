@@ -468,7 +468,7 @@ Cela réduit aussi le risque d'avis négatifs et de retrait du store.
 | Entrées | Input System (Active Input Handling : Input System Package) |
 | Injection de dépendances | VContainer (équivalent d'esprit à Hilt) |
 | Asynchrone | UniTask |
-| Animations UI / tweens | LitMotion ou DOTween (choix dans OPS-003) |
+| Animations UI / tweens | LitMotion (MIT, distribué en UPM donc épinglable, zéro allocation, intégration UniTask) |
 | Sérialisation de la sauvegarde | `com.unity.nuget.newtonsoft-json` (`JsonUtility` ne gère ni `Dictionary` ni `HashSet`) |
 | Textes | Unity Localization, TextMeshPro |
 | Pubs | Google Mobile Ads (AdMob), médiation AppLovin MAX ou LevelPlay (M6) ; consentement via Google UMP |

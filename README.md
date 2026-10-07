@@ -58,6 +58,30 @@ L'arborescence `_Project` et les assemblies sont mises en place par le ticket OP
 - Git LFS pour les sources lourdes : images (`png`, `jpg`, `psd`, `tga`…), audio (`wav`, `ogg`, `mp3`…), vidéo, polices, modèles (voir `.gitattributes`).
 - `Library/`, `Temp/`, `Logs/`, `UserSettings/`, builds et fichiers de solution générés sont ignorés.
 
+## Paquets
+
+Versions exactes épinglées dans `Packages/manifest.json` (aucune plage) ; `Packages/packages-lock.json`, régénéré par Unity, fige aussi les dépendances indirectes. Les paquets hors registre Unity viennent d'**OpenUPM**, déclaré comme registre à portée (`scopedRegistries`) limité à leurs noms.
+
+| Paquet | Version | Source | Rôle |
+|---|---|---|---|
+| `jp.hadashikick.vcontainer` | 1.19.0 | OpenUPM | VContainer : injection de dépendances, composition root |
+| `com.cysharp.unitask` | 2.5.11 | OpenUPM | UniTask : asynchrone sans allocation |
+| `com.annulusgames.lit-motion` | 2.0.2 | OpenUPM | LitMotion : tweens et animations d'UI |
+| `com.unity.nuget.newtonsoft-json` | 3.2.2 | Unity | Newtonsoft JSON : sérialisation de la sauvegarde (`Dictionary`, `HashSet`) |
+| `com.unity.localization` | 1.5.13 | Unity | Localisation des textes (tire Addressables) |
+| `com.unity.ugui` | 2.0.0 | Unity | uGUI et TextMeshPro (intégré sous Unity 6) |
+| `com.unity.inputsystem` | 1.20.0 | Unity | Entrées (`Pointer.current`) |
+| `com.unity.render-pipelines.universal` | 17.3.0 | Unity | URP 2D, Light 2D |
+| `com.unity.test-framework` | 1.6.0 | Unity | Tests EditMode et PlayMode |
+| `com.unity.timeline` | 1.8.13 | Unity | Séquences animées |
+| `com.unity.2d.animation`, `aseprite`, `psdimporter`, `sprite`, `spriteshape`, `tilemap`, `tilemap.extras`, `tooling` | voir manifest | Unity | Outillage 2D (sprites, import Aseprite / PSD, tilemaps) |
+| `com.unity.ide.rider`, `com.unity.ide.visualstudio` | 3.0.40, 2.0.26 | Unity | Intégration IDE |
+| `com.unity.modules.*` | 1.0.0 | Unity (intégrés) | Modules moteur utilisés (audio, animation, physique 2D, UI, réseau `unitywebrequest*`, `androidjni`, `jsonserialize`…) |
+
+**Tweens : LitMotion** plutôt que DOTween : licence MIT, distribué en paquet UPM donc épinglable (DOTween passe par l'Asset Store, hors manifest), zéro allocation (adapté aux contraintes de performance), intégration UniTask native (`await` d'un tween).
+
+Les SDK de services (Google Mobile Ads + UMP, Unity IAP, Firebase, Mobile Notifications, Play Games Services) sont ajoutés par leurs tickets SVC.
+
 ## Flux de travail
 
 Un ticket = une branche `feat/<CODE>` (ex. `feat/OPS-001`) = une PR vers `main`. Les commits sont préfixés par le code du ticket (`OPS-001: ...`).
